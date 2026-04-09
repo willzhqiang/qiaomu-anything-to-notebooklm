@@ -7,10 +7,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-[![GitHub stars](https://img.shields.io/github/stars/joeseesun/anything-to-notebooklm?style=social)](https://github.com/joeseesun/anything-to-notebooklm/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/joeseesun/anything-to-notebooklm?style=social)](https://github.com/joeseesun/anything-to-notebooklm/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/joeseesun/anything-to-notebooklm)](https://github.com/joeseesun/anything-to-notebooklm/issues)
-[![GitHub last commit](https://img.shields.io/github/last-commit/joeseesun/anything-to-notebooklm)](https://github.com/joeseesun/anything-to-notebooklm/commits/main)
+[![GitHub stars](https://img.shields.io/github/stars/joeseesun/qiaomu-anything-to-notebooklm?style=social)](https://github.com/joeseesun/qiaomu-anything-to-notebooklm/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/joeseesun/qiaomu-anything-to-notebooklm?style=social)](https://github.com/joeseesun/qiaomu-anything-to-notebooklm/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/joeseesun/qiaomu-anything-to-notebooklm)](https://github.com/joeseesun/qiaomu-anything-to-notebooklm/issues)
+[![GitHub last commit](https://img.shields.io/github/last-commit/joeseesun/qiaomu-anything-to-notebooklm)](https://github.com/joeseesun/qiaomu-anything-to-notebooklm/commits/main)
 
 [快速开始](#-快速开始) • [支持格式](#-支持的内容源) • [使用示例](#-使用示例) • [常见问题](#-常见问题)
 
@@ -105,8 +105,8 @@ AI ：✅ 25 页 PPT 已生成 → slides.pdf
 ```bash
 # 1. 克隆到 Claude skills 目录
 cd ~/.claude/skills/
-git clone https://github.com/joeseesun/anything-to-notebooklm
-cd anything-to-notebooklm
+git clone https://github.com/joeseesun/qiaomu-anything-to-notebooklm
+cd qiaomu-anything-to-notebooklm
 
 # 2. 一键安装所有依赖
 ./install.sh
@@ -304,10 +304,10 @@ https://youtube.com/watch?v=xxx  → YouTube 视频
 
 ```bash
 # 测试 MCP 服务器
-python ~/.claude/skills/anything-to-notebooklm/wexin-read-mcp/src/server.py
+python ~/.claude/skills/qiaomu-anything-to-notebooklm/wexin-read-mcp/src/server.py
 
 # 重新安装依赖
-cd ~/.claude/skills/anything-to-notebooklm/wexin-read-mcp
+cd ~/.claude/skills/qiaomu-anything-to-notebooklm/wexin-read-mcp
 pip install -r requirements.txt
 playwright install chromium
 ```
@@ -382,8 +382,8 @@ A: 微信公众号有反爬虫，MCP 用浏览器模拟绕过。其他内容源�
 
 ## 📮 联系
 
-- **Issues**: [GitHub Issues](https://github.com/joeseesun/anything-to-notebooklm/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/joeseesun/anything-to-notebooklm/discussions)
+- **Issues**: [GitHub Issues](https://github.com/joeseesun/qiaomu-anything-to-notebooklm/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/joeseesun/qiaomu-anything-to-notebooklm/discussions)
 
 ---
 
