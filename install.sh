@@ -51,22 +51,29 @@ else
     echo -e "${GREEN}✅ 克隆完成${NC}"
 fi
 
-# 3. 安装 Python 依赖（通过 uv tool install / uvx）
+# 3. 创建 venv 并安装 Python 依赖
 echo ""
 echo -e "${YELLOW}[3/5] 安装 Python 依赖...${NC}"
 
-# MCP 依赖（fastmcp、playwright、beautifulsoup4、lxml）和 markitdown
-# 用 uv pip 安装到用户 Python 环境（不污染系统）
-UV_PYTHON_BIN="$(python3 -c 'import sys; print(sys.executable)')"
+VENV_DIR="$SKILL_DIR/.venv"
+VENV_PYTHON="$VENV_DIR/bin/python"
+
+if [ -f "$VENV_PYTHON" ]; then
+    echo -e "${GREEN}✅ .venv 已存在${NC}"
+else
+    echo "创建虚拟环境 .venv ..."
+    uv venv "$VENV_DIR"
+    echo -e "${GREEN}✅ .venv 创建完成${NC}"
+fi
 
 install_pkg() {
     local pkg="$1"
     local import_name="${2:-$1}"
-    if python3 -c "import $import_name" 2>/dev/null; then
+    if "$VENV_PYTHON" -c "import $import_name" 2>/dev/null; then
         echo -e "${GREEN}✅ $pkg 已安装${NC}"
     else
         echo "安装 $pkg ..."
-        uv pip install --python "$UV_PYTHON_BIN" "$pkg"
+        uv pip install --python "$VENV_PYTHON" "$pkg"
         echo -e "${GREEN}✅ $pkg 安装完成${NC}"
     fi
 }
@@ -77,18 +84,18 @@ install_pkg "lxml"
 install_pkg "markitdown[all]" "markitdown"
 
 # playwright 单独处理（需要额外安装浏览器）
-if python3 -c "from playwright.sync_api import sync_playwright" 2>/dev/null; then
+if "$VENV_PYTHON" -c "from playwright.sync_api import sync_playwright" 2>/dev/null; then
     echo -e "${GREEN}✅ playwright 已安装${NC}"
 else
     echo "安装 playwright ..."
-    uv pip install --python "$UV_PYTHON_BIN" "playwright>=1.40.0"
+    uv pip install --python "$VENV_PYTHON" "playwright>=1.40.0"
     echo -e "${GREEN}✅ playwright 安装完成${NC}"
 fi
 
 # MCP 服务器自身的依赖
 if [ -f "$MCP_DIR/requirements.txt" ]; then
     echo "安装 wexin-read-mcp 依赖..."
-    uv pip install --python "$UV_PYTHON_BIN" -r "$MCP_DIR/requirements.txt"
+    uv pip install --python "$VENV_PYTHON" -r "$MCP_DIR/requirements.txt"
     echo -e "${GREEN}✅ wexin-read-mcp 依赖安装完成${NC}"
 fi
 
@@ -96,7 +103,7 @@ fi
 echo ""
 echo -e "${YELLOW}[4/5] 检查 Playwright Chromium...${NC}"
 
-if python3 -c "
+if "$VENV_PYTHON" -c "
 from playwright.sync_api import sync_playwright
 p = sync_playwright().start()
 b = p.chromium.launch()
@@ -106,7 +113,7 @@ p.stop()
     echo -e "${GREEN}✅ Playwright Chromium 已就绪${NC}"
 else
     echo "安装 Chromium（可能需要几分钟）..."
-    python3 -m playwright install chromium
+    "$VENV_PYTHON" -m playwright install chromium
     echo -e "${GREEN}✅ Chromium 安装完成${NC}"
 fi
 
@@ -140,7 +147,7 @@ echo ""
 echo -e "${BLUE}📝 下一步：配置 MCP 服务器${NC}"
 echo ""
 echo "运行以下命令将微信 MCP 添加到 Claude Code："
-echo -e "${GREEN}  claude mcp add weixin-reader -s user -- python $MCP_DIR/src/server.py${NC}"
+echo -e "${GREEN}  claude mcp add weixin-reader -s user -- $VENV_PYTHON $MCP_DIR/src/server.py${NC}"
 echo ""
 echo -e "${BLUE}🔐 NotebookLM 认证（首次使用）${NC}"
 echo ""
